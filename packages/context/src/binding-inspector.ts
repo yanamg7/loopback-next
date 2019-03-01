@@ -193,6 +193,10 @@ export type BindingFromClassOptions = {
    * Mapping artifact type to binding key namespaces
    */
   typeNamespaceMapping?: TypeNamespaceMapping;
+  /**
+   * Default scope if the binding does not have an explicit scope
+   */
+  defaultScope?: BindingScope;
 };
 
 /**
@@ -215,6 +219,9 @@ export function createBindingFromClass<T = unknown>(
   }
   if (options.type) {
     binding.tag({type: options.type}, options.type);
+  }
+  if (options.defaultScope) {
+    binding.applyDefaultScope(options.defaultScope);
   }
   return binding;
 }
